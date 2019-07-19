@@ -79,7 +79,7 @@
               <Tooltip :content="item.tooltip" placement="top-start">
                 <span>{{item.type}}</span>
               </Tooltip>
-              <!--Tooltip 常用于展示鼠标 hover 时的提示信息  placement 	Tooltip 的出现位置。-->
+              <!--Tooltip 常用于展示鼠标 hover 时的提示信息placementTooltip 的出现位置-->
             </div>
           </div>
         </div>

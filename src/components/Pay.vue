@@ -51,6 +51,7 @@ export default {
 }
 .pay-qr-scan {
   width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

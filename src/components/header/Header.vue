@@ -24,11 +24,9 @@
       </ul>
       <ul class="detail">
         <li class="first" v-show="!userInfo.username">
-          <!--v-show="!userInfo.username"如果不存在用户名，即没有人登陆，就显示这个页面-->
-          你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/SignUp">免费注册 <Icon type="person-add"></Icon></router-link></span>
+          你好，请<router-link to="/">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
         <li v-show="!!userInfo.username">
-          <!--v-show="!！userInfo.username"如果存在用户名，即有人登陆，就显示这个页面-->
           <Dropdown>
             <p class="username-p">
               <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>

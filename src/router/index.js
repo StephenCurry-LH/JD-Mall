@@ -1,11 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
-const Login = resolve => require(['@/components/Login'], resolve);
-const SignUp = resolve => require(['@/components/SignUp'], resolve);
-const CheckPhone = resolve => require(['@/components/signUp/CheckPhone'], resolve);
-const InputInfo = resolve => require(['@/components/signUp/InputInfo'], resolve);
-const SignUpDone = resolve => require(['@/components/signUp/SignUpDone'], resolve);
 const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
 const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
 const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
@@ -29,40 +24,7 @@ export default new Router({
       name: 'Index',
       component: Index
     },
-    {
-      path: '/Login', // 登录
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/SignUp', // 注册
-      name: 'SignUp',
-      component: SignUp,
-      children: [
-        {
-          path: '/',
-          // 对应url
-          name: 'index',
-          component: CheckPhone
-          // 对应vue页面的名字
-        },
-        {
-          path: 'checkPhone',
-          name: 'CheckPhone',
-          component: CheckPhone
-        },
-        {
-          path: 'inputInfo',
-          name: 'InputInfo',
-          component: InputInfo
-        },
-        {
-          path: 'signUpDone',
-          name: 'SignUpDone',
-          component: SignUpDone
-        }
-      ]
-    },
+
     {
       path: '/goodsList', // 商品列表
       name: 'GoodsList',
