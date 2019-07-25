@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
 const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
+const login = resolve => require(['@/components/login'], resolve);
 const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
 const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
 const Order = resolve => require(['@/components/Order'], resolve);
@@ -29,6 +30,11 @@ export default new Router({
       path: '/goodsList', // 商品列表
       name: 'GoodsList',
       component: GoodsList
+    },
+    {
+      path: '/login', // 登录
+      name: 'login',
+      component: login
     },
     {
       path: '/goodsDetail', // 商品详情

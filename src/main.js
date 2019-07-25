@@ -5,10 +5,15 @@ import App from './App';
 import router from './router';
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-
+import axios from 'axios';
+import $ from 'jquery';
+Vue.prototype.$ajax = axios;
+// Vue.http.options.emulateJSON = true;
+// Vue.http.options.headers = {
+//   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+// };
 Vue.use(iView);
 Vue.config.productionTip = false;
-
 router.beforeEach((to, from, next) => {
   // 全局钩子
   iView.LoadingBar.start();

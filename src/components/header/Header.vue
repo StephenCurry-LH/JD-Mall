@@ -24,7 +24,7 @@
       </ul>
       <ul class="detail">
         <li class="first" v-show="!userInfo.username">
-          你好，请<router-link to="/">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/">免费注册 <Icon type="person-add"></Icon></router-link></span>
+          你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
         <li v-show="!!userInfo.username">
           <Dropdown>
@@ -55,8 +55,8 @@
               <div class="shopping-cart-null" v-show="shoppingCart.length <= 0">
                 <!--购物车为空-->
                 <Icon type="ios-cart-outline" class="cart-null-icon"></Icon>
-                <span>你的购物车没有空空哦</span>
-                <span>赶快去添加商品吧~</span>
+                <span>你的购物车空空如也</span>
+                <span>赶快去添加商品吧</span>
               </div>
               <div class="shopping-cart-list" v-show="shoppingCart.length > 0">
                 <div class="shopping-cart-box" v-for="(item,index) in shoppingCart" :key="index">

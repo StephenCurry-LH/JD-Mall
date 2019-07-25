@@ -9,7 +9,7 @@
         <div class="freeback-box">
           <div class="freeback-title">
             <h1>意见反馈</h1>
-            <h2>感谢你的反馈，我们会积极改善，做出更好的服务的</h2>
+            <h2>感谢你的反馈，我们会积极改善</h2>
           </div>
           <div class="freeback-content">
             <div class="freeback-form">
@@ -21,8 +21,8 @@
                   <i-input v-model="formItem.content" type="textarea" :autosize="{minRows: 8,maxRows: 10}" placeholder="请输入反馈信息"></i-input>
                 </FormItem>
                 <FormItem>
-                  <Button type="primary">提交</Button>
-                  <Button type="ghost">清空信息</Button>
+                  <Button type="primary" @click="submit">提交</Button>
+                  <Button type="ghost" @click="qingkong">清空信息</Button>
                 </FormItem>
               </Form>
             </div>
@@ -43,6 +43,14 @@ export default {
         content: ''
       }
     };
+  },
+  methods:
+  {
+    submit () {
+      alert(this.formItem.title);
+    }
+  },
+  qingkong () {
   }
 };
 </script>
