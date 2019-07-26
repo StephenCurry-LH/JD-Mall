@@ -14,6 +14,8 @@ export default {
   name: 'MyShoppingCart',
   data () {
     return {
+      shoppingCart: [],
+      // 这个一定要写，要不然都不到数据
       columns: [
         {
           type: 'selection',
@@ -22,17 +24,8 @@ export default {
         },
         {
           title: '图片',
-          key: 'img',
+          key: 'receiverName',
           width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
           align: 'center'
         },
         {
@@ -55,7 +48,7 @@ export default {
         {
           title: '价格',
           width: 68,
-          key: 'price',
+          key: 'receiverPhone',
           align: 'center'
         }
       ]
@@ -63,12 +56,26 @@ export default {
   },
   created () {
     this.loadShoppingCart();
+    this.getlist();
   },
   computed: {
     ...mapState(['shoppingCart'])
   },
   methods: {
     ...mapActions(['loadShoppingCart']),
+    getlist: function () {
+      var self = this;
+      $.ajax({
+        type: 'GET',
+        url: 'http://mall.caimingyang.cn:8080/test',
+        async: false,
+        success: function (data) {
+          self.shoppingCart = data;
+        },
+        error: function (message) {
+        }
+      });
+    },
     goTo () {
       this.$router.push('/order');
     }
