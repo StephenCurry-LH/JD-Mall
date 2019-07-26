@@ -132,16 +132,16 @@ export default {
       // var from = new formData();
       $.ajax({
         type: 'POST',
-        url: 'http://mall.caimingyang.cn:8080/shipping',
+        url: 'http://mall.caimingyang.cn:8080/test',
         // url: 'http://localhost:8080/#/home/addAddress',
         // contentType: 'application/json; charset=utf-8',
         data: this.formData,
         // dataType: 'json',
         success: function (data) {
-          alert('yes');
+          alert('添加地址成功');
         },
         error: function (message) {
-          alert('no');
+          alert('添加地址失败，请重试');
         }
       });
       // $.ajax({

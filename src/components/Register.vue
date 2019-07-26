@@ -146,9 +146,7 @@ export default {
         email: '',
         role: '',
         question: '',
-        answer: '',
-        smscode: '',
-        avatar: ''
+        answer: ''
       },
       rrules: {
         nickname: [{required: true, trigger: 'blur', message: '请输入用户名'}, {min: 3, max: 16, message: '用户名长度3-16个字符'}],
@@ -188,20 +186,20 @@ export default {
       }
     },
     // <!--提交注册-->
-    submitForm (formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          // setTimeout(() => {
-          //   alert('注册成功')
-          // }, 400)
-          this.trans();
-        } else {
-          console.log('error submit!!');
-          alert('注册失败');
-          return false;
-        }
-      });
-    },
+    // submitForm (formName) {
+    //   this.$refs[formName].validate(valid => {
+    //     if (valid) {
+    //       // setTimeout(() => {
+    //       //   alert('注册成功')
+    //       // }, 400)
+    //       this.trans();
+    //     } else {
+    //       console.log('error submit!!');
+    //       alert('注册失败');
+    //       return false;
+    //     }
+    //   });
+    // },
     trans () {
       let formData = new FormData();
       formData.append('nickname', this.rform.nickname);
@@ -259,6 +257,22 @@ export default {
     gotoLogin () {
       this.$router.push({
         path: '/login'
+      });
+    },
+    submitForm () {
+      $.ajax({
+        type: 'POST',
+        url: 'http://mall.caimingyang.cn:8080/register',
+        // url: 'http://localhost:8080/#/home/addAddress',
+        // contentType: 'application/json; charset=utf-8',
+        data: this.rform,
+        // dataType: 'json',
+        success: function (data) {
+          alert('注册成功');
+        },
+        error: function (message) {
+          alert('注册，请重试');
+        }
       });
     },
     // 验证手机号

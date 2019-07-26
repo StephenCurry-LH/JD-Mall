@@ -1,24 +1,19 @@
 <template>
   <div>
-    <div>
-      <p slot="header">
-        <Icon type="edit" ></Icon>
-        <span>修改地址</span>
-      </p>
-    </div>
     <div class="address-box" v-for="(item, index) in address" :key="index">
       <div class="address-header">
-        <span>{{item.receiver_name}}</span>
+        <span>{{item.receiverName}}</span>
         <div class="address-action">
           <span @click="edit(index)"><Icon type="edit"></Icon> 修改</span>
           <span @click="del(index)"><Icon type="trash-a"></Icon> 删除</span>
         </div>
       </div>
       <div class="address-content">
-        <p><span class="address-content-title"> 收 货 人 :</span> {{item.receiver_name}}</p>
-        <p><span class="address-content-title">收货地区:</span> {{item.receiver_province}} {{item.receiver_city}} {{item.receiver_district}}</p>
-        <p><span class="address-content-title">收货地址:</span> {{item.receiver_addr}}</p>
-        <p><span class="address-content-title">邮政编码:</span> {{item.receiver_zip}}</p>
+        <p><span class="address-content-title"> 收 货 人 :</span> {{item.receiverName}}</p>
+        <p><span class="address-content-title">收货地区:</span> {{item.receiverProvince}} {{item.receiverCity}} {{item.receiverDistrict}}</p>
+        <p><span class="address-content-title">收货地址:</span> {{item.receiverAddress}}</p>
+        <p><span class="address-content-title">电话号码:</span> {{item.receiverPhone}}</p>
+        <p><span class="address-content-title">邮政编码:</span> {{item.receiverZip}}</p>
       </div>
     </div>
     <Modal v-model="modal" width="530">
@@ -62,7 +57,7 @@ export default {
   name: 'MyAddress',
   data: function () {
     return {
-      // address: {},
+      address: {},
       modal: false,
       formData: {
         receiver_name: '',
@@ -71,7 +66,8 @@ export default {
         receiver_zip: '',
         receiver_province: '辽宁省',
         receiver_city: '沈阳市',
-        receiver_distinct: '和平区'
+        receiver_district: '和平区',
+        address_id: ''
       },
       ruleInline: {
         receiver_name: [
@@ -100,48 +96,44 @@ export default {
     ...mapActions(['loadAddress']),
     edit (index) {
       this.modal = true;
-      this.formData.receiver_province = this.address[index].receiver_province;
-      this.formData.receiver_city = this.address[index].receiver_city;
-      this.formData.receiver_district = this.address[index].receiver_district;
-      this.formData.receiver_addr = this.address[index].receiver_addr;
-      this.formData.receiver_name = this.address[index].receiver_name;
-      this.formData.receiver_phone = this.address[index].receiver_phone;
-      this.formData.receiver_zip = this.address[index].receiver_zip;
-    },
-    li () {
-      $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8080/#/home/addAddress',
-        async: false,
-        success: function (data) {
-          // this.address = this.data;
-          // alert(this.data[0].recever_name);
-          alert(data[0].receiver_city);
-        },
-        error: function (message) {
-          alert(message);
-        }
-      });
+      this.formData.receiver_province = this.address[index].receiverProvince;
+      this.formData.receiver_city = this.address[index].receiverCity;
+      this.formData.receiver_district = this.address[index].receiverDistrict;
+      this.formData.receiver_addr = this.address[index].receiverAddress;
+      this.formData.receiver_name = this.address[index].receiverName;
+      this.formData.receiver_phone = this.address[index].receiverPhone;
+      this.formData.receiver_zip = this.address[index].receiverZip;
+      this.formData.address_id = this.address[index].id;
     },
     getlist: function () {
+      var self = this;
       $.ajax({
         type: 'GET',
-        url: 'http://localhost:8080/#/home/addAddress',
-        // url: 'http://ipgw.neu.edu.cn',
+        url: 'http://mall.caimingyang.cn:8080/test',
         async: false,
         success: function (data) {
-        // this.address = this.data;
-        // alert(this.data[0].recever_name);
-          alert('get数据成功');
+          self.address = data;
+          // 这里，卡在这里处理bug要吐血了，这里不能是this，必须是别的替换，要不就会出现nodefined,详情见https://cloud.tencent.com/developer/ask/25602
+          alert(this.address[0].receiverName);
         },
         error: function (message) {
-          alert(message);
+          alert('没有收货地址');
         }
       });
     },
     editAction () {
       this.modal = false;
-      this.$Message.success('修改成功');
+      $.ajax({
+        type: 'PUT',
+        url: 'http://mall.caimingyang.cn:8080/test',
+        data: this.formData,
+        success: function (data) {
+          alert('修改地址成功');
+        },
+        error: function (message) {
+          alert('修改地址失败，请重试');
+        }
+      });
     },
     getProvince (data) {
       this.formData.receiver_province = data.value;
@@ -153,11 +145,22 @@ export default {
       this.formData.receiver_district = data.value;
     },
     del (index) {
+      this.formData.address_id = this.address[index].id;
       this.$Modal.confirm({
         title: '信息提醒',
         content: '你确定删除这个收货地址',
         onOk: () => {
-          this.$Message.success('删除成功');
+          $.ajax({
+            type: 'DELETE',
+            url: 'http://mall.caimingyang.cn:8080/test',
+            data: this.formData,
+            success: function (data) {
+              alert('删除地址成功');
+            },
+            error: function (message) {
+              alert('删除地址失败，请重试');
+            }
+          });
         },
         onCancel: () => {
           this.$Message.info('取消删除');

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table border :columns="columns" :data="order" size="large" no-data-text="你还有订单，快点去购物吧"></Table>
+    <Table border :columns="columns" :data="order" size="large" no-data-text="你还没有订单，快点去购物吧"></Table>
     <div class="page-size">
       <Page :total="100" show-sizer></Page>
     </div>

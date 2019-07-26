@@ -58,29 +58,49 @@ export default {
     this.getCookie();
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          const self = this;
-          // 判断复选框是否被勾选 勾选则调用配置cookie方法
-          // eslint-disable-next-line eqeqeq
-          if (self.checked == true) {
-            // 传入账号名，密码，和保存天数3个参数
-            self.setCookie(self.ruleForm.username, self.ruleForm.password, 7);
-          } else {
-            console.log('清空Cookie');
-            // 清空Cookie
-            self.clearCookie();
-          }
-          alert('登录成功!');
-          this.transl();
-          // this.$router.push({ name: 'Home', params: {user: self.ruleForm.username, pwd: self.ruleForm.password}})
-        } else {
-          console.log('error submit!!');
-          return false;
+    submitForm () {
+      $.ajax({
+        type: 'POST',
+        url: 'http://mall.caimingyang.cn:8080/login',
+        // url: 'http://localhost:8080/#/home/addAddress',
+        // contentType: 'application/json; charset=utf-8',
+        data: this.ruleForm,
+        // dataType: 'json',
+        success: function (data) {
+          // alert('登录成功');
+          this.$router.go('/home');
+          // this.$router.push({
+          //   path: '/home'
+          // });
+        },
+        error: function (message) {
+          alert('失败，请重试');
         }
       });
     },
+    // submitForm (formName) {
+    //   this.$refs[formName].validate((valid) => {
+    //     if (valid) {
+    //       const self = this;
+    //       // 判断复选框是否被勾选 勾选则调用配置cookie方法
+    //       // eslint-disable-next-line eqeqeq
+    //       if (self.checked == true) {
+    //         // 传入账号名，密码，和保存天数3个参数
+    //         self.setCookie(self.ruleForm.username, self.ruleForm.password, 7);
+    //       } else {
+    //         console.log('清空Cookie');
+    //         // 清空Cookie
+    //         self.clearCookie();
+    //       }
+    //       alert('登录成功!');
+    //       this.transl();
+    //       // this.$router.push({ name: 'Home', params: {user: self.ruleForm.username, pwd: self.ruleForm.password}})
+    //     } else {
+    //       console.log('error submit!!');
+    //       return false;
+    //     }
+    //   });
+    // },
     // resetForm(formName) {
     //   this.$refs[formName].resetFields();
     // },
