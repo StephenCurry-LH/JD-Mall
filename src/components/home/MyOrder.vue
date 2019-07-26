@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div><Button type="primary" size="large" long @click="li">修改</Button></div>
+    <!--<div><Button type="primary" size="large" long @click="li">修改</Button></div>-->
      <Table border :columns="columns" :data="order" size="large" no-data-text="你还没有订单，快点去购物吧"></Table>
      <div class="page-size">
        <Page :total="100" show-sizer></Page>

@@ -27,7 +27,7 @@
                   <RadioGroup vertical size="large" @on-change="changeAddress">
                     <!--RadioGroup选择-->
                     <Radio :label="item.addressId" v-for="(item, index) in address" :key="index">
-                      <span>{{item.name}} {{item.province}} {{item.city}} {{item.address}} {{item.phone}} {{item.postalcode}}</span>
+                      <span>{{item.receiverName}} {{item.receiverProvince}} {{item.receiverCity}} {{item.receiverDistrict}} {{item.receiverAddress}} {{item.receiverPhone}} {{item.receiverZip}}</span>
                     </Radio>
                   </RadioGroup>
                 </p>
@@ -68,9 +68,13 @@ export default {
   },
   created () {
     this.loadAddress();
+    this.getlist();
+    this.getba();
   },
   data () {
     return {
+      address: {},
+      shoppingCart: [],
       goodsCheckList: [],
       columns: [
         {
@@ -80,22 +84,13 @@ export default {
         },
         {
           title: '图片',
-          key: 'img',
+          key: 'receiverPhone',
           width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
           align: 'center'
         },
         {
           title: '标题',
-          key: 'title',
+          key: 'receiverName',
           align: 'center'
         },
         {
@@ -128,9 +123,7 @@ export default {
     ...mapState(['address', 'shoppingCart']),
     totalPrice () {
       let price = 0;
-      this.goodsCheckList.forEach(item => {
-        price += item.price * item.count;
-      });
+      // price = this.shoppingCart[0].receiverZip;
       return price;
     }
   },
@@ -139,6 +132,33 @@ export default {
     select (selection, row) {
       console.log(selection);
       this.goodsCheckList = selection;
+    },
+    getba: function () {
+      var self = this;
+      $.ajax({
+        type: 'GET',
+        url: 'http://mall.caimingyang.cn:8080/test',
+        async: false,
+        success: function (data) {
+          self.shoppingCart = data;
+        },
+        error: function (message) {
+        }
+      });
+    },
+    getlist: function () {
+      var self = this;
+      $.ajax({
+        type: 'GET',
+        url: 'http://mall.caimingyang.cn:8080/test',
+        async: false,
+        success: function (data) {
+          self.address = data;
+        },
+        error: function (message) {
+          alert('没有收货地址');
+        }
+      });
     },
     changeAddress (data) {
       const father = this;
