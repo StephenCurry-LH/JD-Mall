@@ -23,13 +23,13 @@
         </li>
       </ul>
       <ul class="detail">
-        <li class="first" v-show="!userInfo.username">
+        <li class="first" v-show="!userInfo.name">
           你好，请<router-link to="/login">登录 <Icon type="person"></Icon></router-link> |<span class="text-color-red"><router-link to="/register">免费注册 <Icon type="person-add"></Icon></router-link></span>
         </li>
-        <li v-show="!!userInfo.username">
+        <li v-show="!!userInfo.name">
           <Dropdown>
             <p class="username-p">
-              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.username}} </span>
+              <Avatar class="person-icon" icon="person" size="small" /> <span class="username">{{userInfo.name}} </span>
               <!--Avatar头像组件-->
             </p>
             <DropdownMenu slot="list">
@@ -39,7 +39,7 @@
                     <p>我的主页</p>
                   </div>
                   <div class="sign-out" @click="signOutFun">
-                    <Icon type="log-out"></Icon>
+                    <Icon type="log-out" ></Icon>
                     <p>退出登录</p>
                   </div>
                 </div>
@@ -109,10 +109,12 @@ import { mapState, mapActions } from 'vuex';
 export default {
   name: 'M-Header',
   created () {
+    // this.getlist();
     this.isLogin();
   },
   data () {
     return {
+      // userInfo: {},
       city: '珠海',
       cityArr: [
         ['北京', '上海', '天津', '重庆', '广州'],
@@ -130,6 +132,20 @@ export default {
     changeCity (city) {
       this.city = city;
     },
+    // getlist: function () {
+    //   var self = this;
+    //   $.ajax({
+    //     type: 'GET',
+    //     url: 'http://mall.caimingyang.cn:8080/test',
+    //     async: false,
+    //     success: function (data) {
+    //       self.userInfo = data;
+    //     },
+    //     error: function (message) {
+    //       alert('没有用户信息');
+    //     }
+    //   });
+    // },
     goToPay () {
       this.$router.push('/order');
     },

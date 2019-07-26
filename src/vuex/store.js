@@ -24,8 +24,8 @@ export default new Vuex.Store({
       param: [],
       remarks: []
     },
-    userInfo: { // 用户信息
-      username: ''
+    userInfo: {
+      name: ''
     },
     signUpStep: 0, // 登陆步骤
     marketing: { // 营销

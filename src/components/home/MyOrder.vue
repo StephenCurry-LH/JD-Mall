@@ -1,8 +1,9 @@
 <template>
   <div>
-    <Table border :columns="columns" :data="order" size="large" no-data-text="你还没有订单，快点去购物吧"></Table>
-    <div class="page-size">
-      <Page :total="100" show-sizer></Page>
+    <div><Button type="primary" size="large" long @click="li">修改</Button></div>
+     <Table border :columns="columns" :data="order" size="large" no-data-text="你还没有订单，快点去购物吧"></Table>
+     <div class="page-size">
+       <Page :total="100" show-sizer></Page>
     </div>
   </div>
 </template>
@@ -12,69 +13,51 @@ export default {
   name: 'MyOrder',
   data () {
     return {
-      order: [{
-        order_id: 1529931938150,
-        goods_id: 1529931938150,
-        count: 1,
-        img: 'static/img/goodsDetail/pack/1.jpg',
-        package: '4.7英寸-深邃蓝',
-        price: 28,
-        title: '苹果8/7手机壳iPhone7 Plus保护壳全包防摔磨砂硬外壳',
-        createAt: '2018-06-06 20:06:08'
-      }],
+      order: [],
+      // order0: [{
+      //   'w': '1',
+      //   'e': '1'
+      // },
+      // {
+      //   'w': '2',
+      //   'e': '1'
+      // }],
       columns: [
         {
           title: '订单号',
-          key: 'order_id',
+          key: 'receiverName',
           width: 180,
           align: 'center'
         },
         {
-          title: '图片',
-          key: 'img',
-          width: 86,
-          render: (h, params) => {
-            return h('div', [
-              h('img', {
-                attrs: {
-                  src: params.row.img
-                }
-              })
-            ]);
-          },
-          align: 'center'
-        },
-        {
-          title: '标题',
-          key: 'title',
-          align: 'center'
-        },
-        {
-          title: '套餐',
-          width: 198,
-          key: 'package',
-          align: 'center'
-        },
-        {
-          title: '数量',
-          key: 'count',
-          width: 68,
-          align: 'center'
-        },
-        {
-          title: '价格',
-          width: 68,
-          key: 'price',
-          align: 'center'
-        },
-        {
-          title: '购买时间',
-          width: 120,
-          key: 'createAt',
+          title: '订单号',
+          key: 'receiverPhone',
+          width: 180,
           align: 'center'
         }
       ]
     };
+  },
+  created: function () {
+    this.getlist();
+  },
+  methods: {
+    li () {
+      alert(this.order[0].receiverName);
+    },
+    getlist: function () {
+      var self = this;
+      $.ajax({
+        type: 'GET',
+        url: 'http://mall.caimingyang.cn:8080/test',
+        async: false,
+        success: function (data) {
+          self.order = data;
+        },
+        error: function (message) {
+        }
+      });
+    }
   }
 };
 </script>
