@@ -663,33 +663,24 @@ export const loadRecommend = ({ commit }) => {
   });
 };
 
-export const loadAddress = ({ commit }) => {
-  return new Promise((resolve, reject) => {
-    const address = [
-      {
-        addressId: '123456',
-        name: '李航',
-        province: '辽宁省',
-        city: '沈阳市',
-        area: '和平区',
-        address: '东北大学',
-        phone: '188****5429',
-        postalcode: '000000'
-      },
-      {
-        addressId: '123458',
-        name: 'Kevin',
-        province: '上海市',
-        city: '上海市',
-        area: '浦东新区',
-        address: '沙新镇',
-        phone: '158****0888',
-        postalcode: '200120'
-      }
-    ];
-    commit('SET_USER_ADDRESS', address);
-  });
-};
+// export const loadAddress = ({ commit }) => {
+//   return new Promise((resolve, reject) => {
+//     $.ajax({
+//       type: 'GET',
+//       url: 'http://ipgw.neu.edu.cn',
+//       async: false,
+//       success: function (data) {
+//         // this.address = this.data;
+//         // alert(this.data[0].recever_name);
+//         alert('yes');
+//       },
+//       error: function (message) {
+//         alert(message);
+//       }
+//     });
+//     commit('SET_USER_ADDRESS', this.address);
+//   });
+// };
 
 export const loadShoppingCart = ({ commit }) => {
   return new Promise((resolve, reject) => {

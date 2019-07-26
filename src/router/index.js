@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Index from '@/components/Index';
 const GoodsList = resolve => require(['@/components/GoodsList'], resolve);
-const login = resolve => require(['@/components/login'], resolve);
+const Login = resolve => require(['@/components/login'], resolve);
+const Register = resolve => require(['@/components/Register'], resolve);
+const HeadShot = resolve => require(['@/components/HeadShot'], resolve);
 const GoodsDetail = resolve => require(['@/components/GoodsDetail'], resolve);
 const ShoppingCart = resolve => require(['@/components/ShoppingCart'], resolve);
 const Order = resolve => require(['@/components/Order'], resolve);
@@ -25,16 +27,25 @@ export default new Router({
       name: 'Index',
       component: Index
     },
-
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/headShot',
+      name: 'HeadShot',
+      component: HeadShot
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
+    },
     {
       path: '/goodsList', // 商品列表
       name: 'GoodsList',
       component: GoodsList
-    },
-    {
-      path: '/login', // 登录
-      name: 'login',
-      component: login
     },
     {
       path: '/goodsDetail', // 商品详情

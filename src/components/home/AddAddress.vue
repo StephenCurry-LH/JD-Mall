@@ -133,6 +133,7 @@ export default {
       $.ajax({
         type: 'POST',
         url: 'http://mall.caimingyang.cn:8080/shipping',
+        // url: 'http://localhost:8080/#/home/addAddress',
         // contentType: 'application/json; charset=utf-8',
         data: this.formData,
         // dataType: 'json',

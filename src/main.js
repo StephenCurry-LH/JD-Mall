@@ -7,6 +7,10 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import axios from 'axios';
 import $ from 'jquery';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(ElementUI);
 Vue.prototype.$ajax = axios;
 // Vue.http.options.emulateJSON = true;
 // Vue.http.options.headers = {
