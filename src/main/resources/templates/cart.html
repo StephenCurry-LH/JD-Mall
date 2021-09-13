@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="utf-8" />
+    <title>cart</title>
+    <link rel="stylesheet" type="text/css" href="/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/proList.css" />
+</head>
+<body>
+<!--/*@thymesVar id="productlist" type="java.util.Set<edu.neu.neumall.entity.ShoppingCart>"*/-->
+<div  class="cart mt">
+    <!-----------------site------------------->
+    <div class="site">
+        <p class=" wrapper clearfix">
+            <span  class="fl">购物车</span>
+            <img class="top" src="img/temp/cartTop01.png">
+            <a href="product" class="fr">继续购物&gt;</a>
+        </p>`
+    </div>
+    <!-----------------table------------------->
+    <div class="table wrapper">
+        <div class="tr">
+            <div>商品</div>
+            <div>单价</div>
+            <div>数量</div>
+            <div>小计</div>
+            <div>操作</div>
+        </div>
+        <div th:each="product:${productlist}" class="th">
+            <div class="pro clearfix">
+                <label class="fl">
+                    <input type="checkbox" th:onchange="tijiao([[${product.getCartID()}]] ,this)"/>
+                    <span></span>
+                </label>
+                <a class="fl" href="#">
+                    <dl class="clearfix">
+                        <dt class="fl"><img th:src="${product.getProduct().main_img}" width="120" height="120"></dt>
+                        <dd class="fl">
+                            <p th:text="${product.getProduct().name}"></p>
+                        </dd>
+                    </dl>
+                </a>
+            </div>
+            <div class="price"><p th:text="'￥'+ ${product.getProduct().price}"></p></div>
+            <div class="number">
+                <p class="num clearfix">
+                    <img  th:onclick="updateCart([[${product.getCartID()}]],[[${product.getCount()}-1]])" class="fl sub" src="img/temp/sub.jpg">
+                    <span class="fl" th:text="${product.getCount()}"></span>
+                    <img th:onclick="updateCart([[${product.getCartID()}]],[[${product.getCount()}+1]])" class="fl add" src="img/temp/add.jpg">
+                </p>
+            </div>
+            <div class="price sAll " th:text="${'￥'+product.getCount()*product.getProduct().price}"></div>
+            <div class="price"><a th:onclick="deleteCart([[${product.getCartID()}]])" class="del">删除</a></div>
+        </div>
+        <div class="goOn">空空如也~<a href="product">去逛逛</a></div>
+        <div class="tr clearfix">
+            <label class="fl">
+                <input class="checkAll" type="checkbox"/>
+                <span></span>
+            </label>
+            <p class="fl">
+                <a href="#">全选</a>
+                <a href="#" class="del">删除</a>
+            </p>
+            <p class="fr">
+                <span>共<small id="sl">0</small>件商品</span>
+                <span>合计:&nbsp;<small id="all">￥0.00</small></span>
+                <a onclick="$('#cart-item').submit()" class="count">结算</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="mask"></div>
+<div class="tipDel">
+    <p>确定要删除该商品吗？</p>
+    <p class="clearfix">
+        <a class="fl cer" href="#">确定</a>
+        <a class="fr cancel" href="#">取消</a>
+    </p>
+</div>
+<!--返回顶部-->
+<div class="gotop">
+    <a href="cart">
+        <dl>
+            <dt><img src="img/gt1.png"/></dt>
+            <dd>去购<br />物车</dd>
+        </dl>
+    </a>
+    <a href="/home/profile">
+        <dl>
+            <dt><img src="img/gt3.png"/></dt>
+            <dd>个人<br />中心</dd>
+        </dl>
+    </a>
+    <a href="#" class="toptop" style="display: none;">
+        <dl>
+            <dt><img src="img/gt4.png"/></dt>
+            <dd>返回<br />顶部</dd>
+        </dl>
+    </a>
+</div>
+<script src="js/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/pro.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/cart.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    function deleteCart(cart_id) {
+        $.ajax({
+            url:"/cart/delete",
+            type:"post",
+            data:{
+                shoppingCartID:cart_id
+            }
+        })
+    }
+
+    function addInputItem(item_id) {
+        $('<input>').attr({
+            type: 'hiden',
+            id: item_id,
+            name: 'itemList[]',
+            value: item_id
+        }).appendTo('#cart-item');
+    }
+
+    function removeInputItem(item_id) {
+        $('input#'+item_id).remove()
+    }
+
+    function tijiao(item_id, checkBox)
+    {
+        if(checkBox.checked==true)
+        {
+            addInputItem(item_id);
+        }
+        else
+        {
+            removeInputItem(item_id);
+        }
+    }
+    function updateCart(cart_id, item_count) {
+        $.ajax({
+            url:"/cart/update",
+            type:"post",
+            data:{
+                shoppingCartID:cart_id,
+                count:item_count
+            }
+        })
+
+
+
+    }
+</script>
+<form id="cart-item" method="post" action="/settle">
+</form>
+</body>
+</html>
